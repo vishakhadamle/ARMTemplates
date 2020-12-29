@@ -2,13 +2,13 @@
     "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "Database Administrator Login": {
+        "adminLogin": {
             "type": "string",
             "metadata": {
                 "description": "Database administrator login name"
             }
         },
-        "Database Administrator Login Password": {
+        "adminPassword": {
             "type": "securestring",
             "metadata": {
                 "description": "Database administrator password"
@@ -77,7 +77,7 @@
             ],
             "properties": {
                 "defaultConnection": {
-                    "value": "[concat('Database=', variables('databaseName'), ';Data Source=', variables('serverName'), '.postgresql.database.azure.com;User Id=', parameters('Database Administrator Login'),'@', variables('serverName'),';Password=', parameters('Database Administrator Login Password'))]",
+                    "value": "[concat('Database=', variables('databaseName'), ';Data Source=', variables('serverName'), '.postgresql.database.azure.com;User Id=', parameters('adminLogin'),'@', variables('serverName'),';Password=', parameters('adminPassword'))]",
                     "type": "PostgreSQL"
                 }
             }
@@ -90,8 +90,8 @@
             "kind": "",
             "properties": {
                 "version": "[variables('databaseVersion')]",
-                "administratorLogin": "[parameters('Database Administrator Login')]",
-                "administratorLoginPassword": "[parameters('Database Administrator Login Password')]",
+                "administratorLogin": "[parameters('adminLogin')]",
+                "administratorLoginPassword": "[parameters('adminPassword')]",
                 "storageMB": "[variables('databaseSkuSizeMB')]"
             },
             "sku": {
